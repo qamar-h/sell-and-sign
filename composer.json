@@ -1,0 +1,22 @@
+{
+    "name": "coriolis/sell-and-sign",
+    "description": "A component to query the sell and sign API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hayat Qamar",
+            "email": "qamarhayat@coriolis.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "QH\\Sellandsign\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/http-client": "^5.2",
+        "symfony/var-dumper": "^5.2",
+        "jms/serializer": "^3.12"
+    }
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e623020c-f5f8-4bcc-9806-dbaa19632ee1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1rQQ58B6o7bOjUstrABlLeXl6Tq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/Interfaces" />
+      <recent name="$PROJECT_DIR$/src/DTO/Factory" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e623020c-f5f8-4bcc-9806-dbaa19632ee1" name="Default Changelist" comment="" />
+      <created>1618905647680</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618905647680</updated>
+      <workItem from="1618905648756" duration="26078000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="630" y="304" width="649" height="411" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1618907689489">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="630" y="304" width="649" height="411" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080/0.1080.1368.768@0.0.1920.1080" timestamp="1618907689489" />
+    <state x="733" y="215" width="444" height="708" key="#com.intellij.ide.util.MemberChooser" timestamp="1618930615217">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="733" y="215" width="444" height="708" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/0.1080.1368.768@0.0.1920.1080" timestamp="1618930615217" />
+    <state x="723" y="259" width="454" height="509" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1618931554478">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="723" y="259" width="454" height="509" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080/0.1080.1368.768@0.0.1920.1080" timestamp="1618931554478" />
+    <state x="693" y="264" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1618926993942">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="693" y="264" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1080/0.1080.1368.768@0.0.1920.1080" timestamp="1618926993942" />
+  </component>
+</project>
