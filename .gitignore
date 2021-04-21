@@ -2,3 +2,4 @@ vendor/
 files/
 index.php
 .idea/
+.phpunit.cache/

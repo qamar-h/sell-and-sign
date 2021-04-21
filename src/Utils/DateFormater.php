@@ -5,7 +5,7 @@ namespace QH\Sellandsign\Utils;
 class DateFormater
 {
 
-    public static function sellandsigneDateToDatetime(int $date): \DateTime
+    public static function sellandsignDateToDatetime(int $date): \DateTime
     {
         return (new \DateTime())->setTimestamp($date / 1000 );
     }

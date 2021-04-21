@@ -82,10 +82,11 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
 
     /**
      * @param int $contractId
-     * @return string
+     * @return SignatoryCollection
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws SignatoryErrorException
      * @throws TransportExceptionInterface
      */
     public function getContractorsAbout(int $contractId): SignatoryCollection
@@ -111,5 +112,25 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         return $signatoryCollection;
     }
 
+    /**
+     * @param int $contractId
+     * @return array
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function closeTransaction(int $contractId): array
+    {
+        $url = $this->apiUrl . '/selling/do?m=closeTransaction&id=' . $contractId . '&licenseId=' . $this->licenseId . '&j_token=' . $this->token;
+        $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/json']]);
+
+        if (200 !== $response->getStatusCode()) {
+            throw new \Exception($response->getContent(false));
+        }
+
+        return json_decode($response->getContent(),true);
+
+    }
 
 }

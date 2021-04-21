@@ -29,7 +29,7 @@ class CustomerFactory
             ->setRegistrationNumber($customerData['registrationNumber'])
             ->setCustomerCode($customerData['customerCode'])
             ->setCountry($customerData['country'])
-            ->setCreationDate(DateFormater::sellandsigneDateToDatetime($customerData['creationDate']))
+            ->setCreationDate(DateFormater::sellandsignDateToDatetime($customerData['creationDate']))
         ;
     }
 
