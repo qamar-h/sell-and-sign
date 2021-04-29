@@ -2,20 +2,18 @@
 
 namespace QH\Sellandsign;
 
-use QH\Sellandsign\Collection\ContractCollection;
-use QH\Sellandsign\Collection\SignatoryCollection;
+use QH\Sellandsign\Collection\{ContractCollection,SignatoryCollection};
 use QH\Sellandsign\DataTransformer\RequestToArrayTransformer;
-use QH\Sellandsign\DTO\Contract;
-use QH\Sellandsign\DTO\Factory\ContractFactory;
-use QH\Sellandsign\DTO\Factory\SignatoryFactory;
-use QH\Sellandsign\DTO\Request;
-use QH\Sellandsign\Exception\ContractErrorException;
-use QH\Sellandsign\Exception\SignatoryErrorException;
+use QH\Sellandsign\DTO\Factory\{ContractFactory,SignatoryFactory};
+use QH\Sellandsign\DTO\{Request,Response,Contract};
+use QH\Sellandsign\Exception\{ContractsStructureException,ApiException,SignatoryErrorException};
 use QH\Sellandsign\Interfaces\ContractLoaderInterface;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\{
+    ClientExceptionInterface,
+    RedirectionExceptionInterface,
+    ServerExceptionInterface,
+    TransportExceptionInterface
+};
 
 class ContractLoader extends AbstractSellandsign implements ContractLoaderInterface
 {
@@ -25,7 +23,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface|ContractErrorException
+     * @throws TransportExceptionInterface|ContractsStructureException|ApiException
      */
     public function getContracts(Request $request): ContractCollection
     {
@@ -39,14 +37,17 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         $url = $this->apiUrl . '/selling/do?m=getContracts&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('POST', $url, $data);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
+        /**
+         * todo - see the error codes API dimension to manage them properly
+         */
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
+            throw new ApiException($response->getContent(false));
         }
 
         $result = json_decode($response->getContent(), true);
 
         if (!isset($result['elements'])) {
-            throw new ContractErrorException("Impossible to recover the contracts");
+            throw new ContractsStructureException("Impossible to recover the contracts");
         }
 
         $contracts = new ContractCollection;
@@ -63,15 +64,15 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
+     * @throws TransportExceptionInterface|ApiException
      */
     public function getContract(int $id): Contract
     {
         $url = $this->apiUrl . '/selling/model/contract/read?action=getContract&contract_id=' . $id . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
+            throw new ApiException($response->getContent(false));
         }
 
         $result = json_decode($response->getContent(), true);
@@ -93,7 +94,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
     {
         $url = $this->apiUrl . '/selling/model/contractorsforcontract/list?action=getContractorsAbout&contract_id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/pdf']]);
-        if (200 !== $response->getStatusCode()) {
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
             throw new \Exception($response->getContent(false));
         }
 
@@ -125,7 +126,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         $url = $this->apiUrl . '/selling/do?m=closeTransaction&id=' . $contractId . '&licenseId=' . $this->licenseId . '&j_token=' . $this->token;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/json']]);
 
-        if (200 !== $response->getStatusCode()) {
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
             throw new \Exception($response->getContent(false));
         }
 

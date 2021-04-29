@@ -2,7 +2,7 @@
 
 namespace QH\Sellandsign\Exception;
 
-class ContractErrorException extends \Exception
+class ApiException extends \Exception
 {
 
 }
