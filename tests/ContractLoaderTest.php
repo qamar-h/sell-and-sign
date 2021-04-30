@@ -51,11 +51,19 @@ class ContractLoaderTest extends TestCase
         $this->assertInstanceOf(ContractCollection::class,$contracts);
     }
 
-    public function testGetContractThrowApiExceptionnError() {
+    public function testGetContractThrowApiExceptionError() {
         $this->responseReturnError500();
         $contractLoader = new ContractLoader($this->configuration);
         $this->expectException(ApiException::class);
         $contractLoader->getContract(1742);
+    }
+
+    public function testGetContractReturnNull()
+    {
+        $this->responseReturnArray(null);
+        $contractLoader = new ContractLoader($this->configuration);
+        $contract = $contractLoader->getContract(1742);
+        $this->assertEquals(null,$contract);
     }
 
     public function testGetContractSuccess() {
@@ -85,7 +93,7 @@ class ContractLoaderTest extends TestCase
         $this->configuration->method('getHttpclient')->willReturn($httpClient);
     }
 
-    private function responseReturnArray(string $data) {
+    private function responseReturnArray(?string $data) {
         $reponse = new MockResponse($data);
         $httpClient = new MockHttpClient([$reponse]);
         $this->configuration->method('getHttpclient')->willReturn($httpClient);
