@@ -66,7 +66,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface|ApiException
      */
-    public function getContract(int $id): Contract
+    public function getContract(int $id): ?Contract
     {
         $url = $this->apiUrl . '/selling/model/contract/read?action=getContract&contract_id=' . $id . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url);
@@ -76,6 +76,10 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         }
 
         $result = json_decode($response->getContent(), true);
+
+        if($result === null) {
+            return null;
+        }
 
         return ContractFactory::fromArray($result);
 

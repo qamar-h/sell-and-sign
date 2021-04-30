@@ -10,5 +10,5 @@ interface ContractLoaderInterface
 {
     public function getContracts(Request $request): ContractCollection;
 
-    public function getContract(int $id): Contract;
+    public function getContract(int $id): ?Contract;
 }
