@@ -5,7 +5,7 @@ namespace QH\Sellandsign\DTO;
 class Request
 {
 
-    private $contractSelector = 0;
+    private $contractSelector = Contract::CONTRACT_SELECTOR_ALL;
     private $contractId;
     private $vendor;
     private $company;

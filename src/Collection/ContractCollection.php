@@ -10,4 +10,12 @@ class ContractCollection extends AbstractCollection
     {
         $this->data[] = $contract;
     }
+
+    public function remove(Contract $contract)
+    {
+        if (is_int($key = array_search($contract, $this->data, true))) {
+            unset($this->data[$key]);
+        }
+    }
+
 }

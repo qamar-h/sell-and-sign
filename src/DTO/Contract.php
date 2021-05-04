@@ -8,6 +8,14 @@ use QH\Sellandsign\Collection\PerimeterCollection;
 class Contract
 {
 
+    public const CONTRACT_SELECTOR_ALL = 0;
+    public const CONTRACT_SELECTOR_IN_PROGRESS = 1;
+    public const CONTRACT_SELECTOR_SIGNED_AND_NOT_VALID = 2;
+    public const CONTRACT_SELECTOR_VALID = 3;
+    public const CONTRACT_SELECTOR_ARCHIVED = 4;
+    public const CONTRACT_SELECTOR_ABANDONED = 5;
+
+
     private $id;
     private $date;
     private $closed;
