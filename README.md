@@ -2,6 +2,11 @@
 This package offers you some features in order to interact with the REST API of the SellAndSign group
 https://www.sellandsign.com
 
+##Installation with composer
+```bash
+composer require coriolis/sell-and-sign
+```
+
 ## The features 
 ContractLoader
 * getContracts > Allows you to retrieve all the available contracts
