@@ -15,8 +15,8 @@
         }
     },
     "require": {
-        "symfony/http-client": "^5.2",
-        "symfony/var-dumper": "^5.2",
+        "symfony/http-client": "^4.1",
+        "symfony/var-dumper": "^4.1",
         "jms/serializer": "^3.12",
         "phpunit/phpunit": "^8.5"
     }
