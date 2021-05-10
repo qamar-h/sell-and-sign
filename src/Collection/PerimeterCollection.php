@@ -10,4 +10,13 @@ class PerimeterCollection extends AbstractCollection
     {
         $this->data[] = $perimeter;
     }
+
+    public function getByKey(int $key): ?Perimeter
+    {
+        if(isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        return null;
+    }
+
 }

@@ -18,4 +18,12 @@ class ContractCollection extends AbstractCollection
         }
     }
 
+    public function getByKey(int $key): ?Contract
+    {
+        if(isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        return null;
+    }
+
 }

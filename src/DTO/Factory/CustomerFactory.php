@@ -16,7 +16,7 @@ class CustomerFactory
             ->setNumber($customerData['number'])
             ->setActorId($customerData['actorId'])
             ->setSyncTimer($customerData['syncTimer'])
-            ->setCity($customerData['civility'])
+            ->setCivility($customerData['civility'])
             ->setFirstname($customerData['firstname'])
             ->setLastname($customerData['lastname'])
             ->setAddress1($customerData['address1'])

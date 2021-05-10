@@ -88,6 +88,7 @@ class ContractFactory
         }
 
         $contract
+            ->setActorId($data['actorId'])
             ->setContractor($contractor)
             ->setCompany($company)
             ->setId($data['id'])

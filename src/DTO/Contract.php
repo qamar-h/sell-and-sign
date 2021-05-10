@@ -35,7 +35,24 @@ class Contract
     private $messageBody;
     private $optionStatus;
     private $optionsList = [];
+    private $actorId = 0;
 
+    /**
+     * @return int
+     */
+    public function getActorId(): int
+    {
+        return $this->actorId;
+    }
+
+    /**
+     * @param int $actorId
+     */
+    public function setActorId(int $actorId): self
+    {
+        $this->actorId = $actorId;
+        return $this;
+    }
 
     /**
      * @return array
