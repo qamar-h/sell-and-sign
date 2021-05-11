@@ -7,6 +7,11 @@ use QH\Sellandsign\Collection\PerimeterCollection;
 
 class Contract
 {
+    public const STATUS_OPEN = "OPEN";
+    public const STATUS_SIGNED = "SIGNED";
+    public const STATUS_ARCHIVED = "ARCHIVED";
+    public const STATUS_CLOSED = "CLOSED";
+    public const STATUS_ABANDONED = "ABANDONED";
 
     public const CONTRACT_SELECTOR_ALL = 0;
     public const CONTRACT_SELECTOR_IN_PROGRESS = 1;
