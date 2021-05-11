@@ -19,7 +19,7 @@ class SignatoryFactory
            ->setSignatureMode($data['signatureMode'])
            ->setSignatureStatus($data['signatureStatus'])
            ->setSignatureDate(DateFormater::sellandsignDateToDatetime($data['signatureDate']))
-           ->setSignatureId($data['signatureId'])
+           ->setSignatureId(isset($data['signatureId']) &&  $data['signatureId'] != "" ? intval($data['signatureId']) : null)
            ->setRank($data['rank'])
            ->setMessageTitle($data['messageTitle'])
            ->setMessageBody($data['messageBody'])

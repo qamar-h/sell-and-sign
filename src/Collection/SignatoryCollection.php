@@ -12,4 +12,12 @@ class SignatoryCollection extends AbstractCollection
         $this->data[] = $signatory;
     }
 
+    public function getByKey(int $key): ?Signatory
+    {
+        if(isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        return null;
+    }
+
 }

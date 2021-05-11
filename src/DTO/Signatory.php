@@ -120,7 +120,7 @@ class Signatory
     /**
      * @param mixed $signatureId
      */
-    public function setSignatureId(int $signatureId): self
+    public function setSignatureId(int $signatureId = null): self
     {
         $this->signatureId = $signatureId;
 
