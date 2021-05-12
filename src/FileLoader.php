@@ -5,6 +5,7 @@ namespace QH\Sellandsign;
 use QH\Sellandsign\Collection\ContractFileCollection;
 use QH\Sellandsign\DTO\Factory\ContractFileFactory;
 use QH\Sellandsign\Exception\ContractFileException;
+use QH\Sellandsign\Exception\ExceptionHandler;
 use QH\Sellandsign\Interfaces\FileLoaderInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -27,9 +28,7 @@ class FileLoader extends AbstractSellandsign implements FileLoaderInterface
         $url = $this->apiUrl . '/selling/model/picture/list?action=getPicturesForContract&contract_id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $result = json_decode($response->getContent(), true);
 
@@ -60,9 +59,7 @@ class FileLoader extends AbstractSellandsign implements FileLoaderInterface
         $url = $this->apiUrl . '/selling/do?m=loadPicture&image_token=' . $imageToken . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $content = "";
         foreach ($this->httpClient->stream($response) as $chunk) {
@@ -86,9 +83,7 @@ class FileLoader extends AbstractSellandsign implements FileLoaderInterface
         $url = $this->apiUrl . '/selling/do?m=getEvidences&contract_id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/zip']]);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $content = "";
 
@@ -115,9 +110,7 @@ class FileLoader extends AbstractSellandsign implements FileLoaderInterface
         $url = $this->apiUrl . '/selling/do?m=getSignedContract&contract_id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/pdf']]);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $content = "";
 
@@ -143,9 +136,7 @@ class FileLoader extends AbstractSellandsign implements FileLoaderInterface
         $url = $this->apiUrl . '/selling/do?m=getCurrentDocumentForContract&id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/pdf']]);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $content = "";
 

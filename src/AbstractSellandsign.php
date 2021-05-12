@@ -22,5 +22,4 @@ class AbstractSellandsign
         $this->httpClient = $configuration->getHttpclient();
     }
 
-
 }

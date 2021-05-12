@@ -6,7 +6,11 @@ use QH\Sellandsign\Collection\{ContractCollection,SignatoryCollection};
 use QH\Sellandsign\DataTransformer\RequestToArrayTransformer;
 use QH\Sellandsign\DTO\Factory\{ContractFactory,SignatoryFactory};
 use QH\Sellandsign\DTO\{Request,Response,Contract};
-use QH\Sellandsign\Exception\{ContractsStructureException,ApiException,SignatoryErrorException};
+use QH\Sellandsign\Exception\{ApiServerException,
+    ContractsStructureException,
+    ApiException,
+    ExceptionHandler,
+    SignatoryErrorException};
 use QH\Sellandsign\Interfaces\ContractLoaderInterface;
 use Symfony\Contracts\HttpClient\Exception\{
     ClientExceptionInterface,
@@ -23,7 +27,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface|ContractsStructureException|ApiException
+     * @throws TransportExceptionInterface|ContractsStructureException|ApiException|\QH\Sellandsign\Exception\ApiServerException
      */
     public function getContracts(Request $request): ContractCollection
     {
@@ -37,12 +41,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         $url = $this->apiUrl . '/selling/do?m=getContracts&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('POST', $url, $data);
 
-        /**
-         * todo - see the error codes API dimension to manage them properly
-         */
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
-            throw new ApiException($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $result = json_decode($response->getContent(), true);
 
@@ -64,16 +63,14 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface|ApiException
+     * @throws TransportExceptionInterface|ApiException|\QH\Sellandsign\Exception\ApiServerException
      */
     public function getContract(int $id): ?Contract
     {
         $url = $this->apiUrl . '/selling/model/contract/read?action=getContract&contract_id=' . $id . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url);
 
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
-            throw new ApiException($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $result = json_decode($response->getContent(), true);
 
@@ -98,9 +95,8 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
     {
         $url = $this->apiUrl . '/selling/model/contractorsforcontract/list?action=getContractorsAbout&contract_id=' . $contractId . '&j_token=' . $this->token . '&licenseId=' . $this->licenseId;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/pdf']]);
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+
+        ExceptionHandler::handleApiErrors($response);
 
         $result = json_decode($response->getContent(),true);
 
@@ -130,9 +126,7 @@ class ContractLoader extends AbstractSellandsign implements ContractLoaderInterf
         $url = $this->apiUrl . '/selling/do?m=closeTransaction&id=' . $contractId . '&licenseId=' . $this->licenseId . '&j_token=' . $this->token;
         $response = $this->httpClient->request('GET', $url, ['headers' => ['Content-Type' => 'application/json']]);
 
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
-            throw new \Exception($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         return json_decode($response->getContent(),true);
 

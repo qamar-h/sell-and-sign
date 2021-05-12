@@ -7,7 +7,7 @@ use QH\Sellandsign\DataTransformer\MemberRequestToArrayTransfomer;
 use QH\Sellandsign\DTO\MemberRequest;
 use QH\Sellandsign\DTO\Factory\MemberFactory;
 use QH\Sellandsign\DTO\Response;
-use QH\Sellandsign\Exception\{ApiException, MembersStructureException};
+use QH\Sellandsign\Exception\{ApiException, ExceptionHandler, MembersStructureException};
 
 class MemberLoader extends AbstractSellandsign
 {
@@ -32,9 +32,7 @@ class MemberLoader extends AbstractSellandsign
 
         $response = $this->httpClient->request('POST', $url, $data);
 
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
-            throw new ApiException($response->getContent(false));
-        }
+        ExceptionHandler::handleApiErrors($response);
 
         $result = json_decode($response->getContent(), true);
 

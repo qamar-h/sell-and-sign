@@ -5,7 +5,9 @@ use PHPUnit\Framework\TestCase;
 use QH\Sellandsign\{Collection\ContractCollection,
     Configuration,
     ContractLoader,
+    Exception\ApiServerException,
     Exception\ContractsStructureException};
+use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use QH\Sellandsign\DTO\{Contract,Request};
@@ -29,9 +31,17 @@ class ContractLoaderTest extends TestCase
 
     public function testGetContractsThrowApiExceptionError()
     {
-        $this->responseReturnError500();
+        $this->responseReturnError(400);
         $contractLoader = new ContractLoader($this->configuration);
         $this->expectException(ApiException::class);
+        $contractLoader->getContracts($this->request);
+    }
+
+    public function testGetContractsThrowApiServerExceptionError()
+    {
+        $this->responseReturnError(500);
+        $contractLoader = new ContractLoader($this->configuration);
+        $this->expectException(ServerException::class);
         $contractLoader->getContracts($this->request);
     }
 
@@ -52,9 +62,16 @@ class ContractLoaderTest extends TestCase
     }
 
     public function testGetContractThrowApiExceptionError() {
-        $this->responseReturnError500();
+        $this->responseReturnError(400);
         $contractLoader = new ContractLoader($this->configuration);
         $this->expectException(ApiException::class);
+        $contractLoader->getContract(1742);
+    }
+
+    public function testGetContractThrowApiServerExceptionError() {
+        $this->responseReturnError(500);
+        $contractLoader = new ContractLoader($this->configuration);
+        $this->expectException(ServerException::class);
         $contractLoader->getContract(1742);
     }
 
@@ -87,8 +104,8 @@ class ContractLoaderTest extends TestCase
         //$this->configuration->method('getHttpclient')->willReturn($this->httpClient);
     }
 
-    private function responseReturnError500() {
-        $reponse = new MockResponse('',['http_code' => 500]);
+    private function responseReturnError(int $code) {
+        $reponse = new MockResponse('',['http_code' => $code]);
         $httpClient = new MockHttpClient([$reponse]);
         $this->configuration->method('getHttpclient')->willReturn($httpClient);
     }
