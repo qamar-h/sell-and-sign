@@ -14,8 +14,8 @@ class Request
     private $endDate = 0;
     private $customer;
     private $city;
-    private $column = 1;
-    private $direction = 1;
+    private $column = "1";
+    private $direction = "1";
     private $offset = 0;
     private $size = 150;
     private $bundleId;
